@@ -30,16 +30,16 @@ An enterprise-style Retrieval-Augmented Generation (RAG) system that combines hy
 
 ## Architecture
 
-PDF → Chunking → Embeddings → Vector DB (ChromaDB)
-↓
-BM25 Index
-↓
-Hybrid Retriever (BM25 + Vector)
-↓
-Cross-Encoder Reranker
-↓
-LLM (Flan-T5)
-↓
+PDF → Chunking → Embeddings → Vector DB (ChromaDB) <br>
+↓ <br>
+BM25 Index <br>
+↓ <br>
+Hybrid Retriever (BM25 + Vector) <br>
+↓ <br>
+Cross-Encoder Reranker <br>
+↓ <br>
+LLM (Flan-T5) <br>
+↓ <br>
 Final Answer + Citations
 
 ## 🛠️ Tech Stack
