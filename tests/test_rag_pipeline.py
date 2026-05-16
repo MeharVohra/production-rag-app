@@ -10,7 +10,7 @@ chunks = chunk_documents(docs)
 retriever = HybridRetriever(chunks)
 llm = AnswerGenerator()
 
-query = "What is Michael Jackson's middle name?"
+query = "In which year Michael joined the Jackson brothers?"
 
 retrieved_chunks = retriever.search(query, k=5)
 
