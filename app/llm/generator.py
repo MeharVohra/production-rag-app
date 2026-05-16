@@ -4,7 +4,7 @@ from transformers import pipeline
 class AnswerGenerator:
     def __init__(self):
         self.llm = pipeline(
-            "text2text-generation",
+            "text-generation",
             model="google/flan-t5-base"
         )
 
@@ -14,8 +14,8 @@ class AnswerGenerator:
         prompt = f"""
 You are a helpful assistant.
 
-Use ONLY the context below to answer the question.
-If answer is not present, say "I don't know".
+Use ONLY the context below.
+If the answer is not in the context, say "I don't know".
 
 Context:
 {context}
@@ -26,6 +26,6 @@ Question:
 Answer:
 """
 
-        result = self.llm(prompt, max_length=256)[0]["generated_text"]
+        result = self.llm(prompt, max_new_tokens=200)[0]["generated_text"]
 
         return result
