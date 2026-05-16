@@ -10,7 +10,7 @@ chunks = chunk_documents(docs)
 retriever = HybridRetriever(chunks)
 llm = AnswerGenerator()
 
-query = "In which year Michael joined the Jackson brothers?"
+query = "In which year did I Want You Back became the Jackson 5's first single to reach number one on the Billboard Hot 100"
 
 retrieved_chunks = retriever.search(query, k=5)
 
