@@ -1,10 +1,10 @@
-from app.ingestion.load_docs import load_pdf
+from app.ingestion.load_docs import load_all_pdfs
 from app.ingestion.chunk_docs import chunk_documents
 from app.retrieval.vector_store import VectorStore
 
 
 # load docs
-docs = load_pdf("data/sample.pdf")
+docs = load_all_pdfs("data/pdfs")
 
 # chunk docs
 chunks = chunk_documents(docs)

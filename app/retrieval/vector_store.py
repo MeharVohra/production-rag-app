@@ -13,7 +13,7 @@ class VectorStore:
             path="vector_store"
         )
         
-        self.client.delete_collection("rag_chunks")
+        # self.client.delete_collection("rag_chunks")
         self.collection = self.client.get_or_create_collection(
             name="rag_chunks"
         )
