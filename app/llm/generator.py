@@ -5,7 +5,7 @@ class AnswerGenerator:
 
     def __init__(self):
 
-        model_name = "google/flan-t5-base"
+        model_name = "google/flan-t5-large"
 
         self.tokenizer = T5Tokenizer.from_pretrained(model_name)
         self.model = T5ForConditionalGeneration.from_pretrained(model_name)
@@ -62,7 +62,9 @@ class AnswerGenerator:
 
         outputs = self.model.generate(
             **inputs,
-            max_new_tokens=100
+            max_new_tokens=200,  # was 100
+            num_beams=4,         # beam search for better quality
+            early_stopping=True
         )
 
         answer = self.tokenizer.decode(

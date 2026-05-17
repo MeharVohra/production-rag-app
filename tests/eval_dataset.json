@@ -1,22 +1,22 @@
 [
   {
     "question": "What is diabetes mellitus?",
-    "answer": "A group of diseases that affect how the body uses blood sugar (glucose)."
+    "answer": "metabolic disorder of multiple aetiology"
   },
   {
     "question": "How is diabetes classified?",
-    "answer": "Diabetes is commonly classified into Type 1, Type 2, and gestational diabetes."
+    "answer": "classified into types based on aetiology and clinical stages"
   },
   {
     "question": "What is insulin used for?",
-    "answer": "Insulin helps regulate blood glucose levels in the body."
+    "answer": "to take the sugar in your blood to other parts of your body"
   },
   {
     "question": "What organization provides diabetes standards of care?",
-    "answer": "The American Diabetes Association (ADA)."
+    "answer": "American Diabetes Association"
   },
   {
     "question": "What is the role of diet in diabetes management?",
-    "answer": "Diet helps control blood sugar levels and manage diabetes effectively."
+    "answer": "helps keep blood glucose in target range"
   }
 ]
