@@ -29,6 +29,7 @@ class Reranker:
         Cross-encoder scores are unbounded logits.
         This maps them into a stable 0–1 range.
         """
+        
         return (score + 10) / 20  # practical heuristic
 
     def _get_source_bonus(self, source: str) -> float:
@@ -48,46 +49,37 @@ class Reranker:
         return 0.0
 
     def rerank(self, query, chunks, top_k=5):
-        if not chunks:
-            return []
 
         texts = [c["text"] for c in chunks]
 
-        # Cross-encoder scoring
+        # 1. Cross-encoder scoring
         pairs = [[query, text] for text in texts]
-        raw_scores = self.model.predict(pairs)
+        scores = self.model.predict(pairs)
+
+        # 2. NORMALIZE scores (ADD THIS RIGHT HERE)
+        scores = (scores - np.min(scores)) / (np.max(scores) - np.min(scores) + 1e-9)
 
         final_scores = []
 
         for i, chunk in enumerate(chunks):
-            semantic_score = self._normalize_cross_encoder_score(raw_scores[i])
 
-            source = chunk.get("metadata", {}).get("source", "")
-            source_bonus = self._get_source_bonus(source)
+            text_score = scores[i]
 
-            # weighted fusion
-            final_score = (
-                self.WEIGHTS["semantic"] * semantic_score +
-                self.WEIGHTS["source"] * source_bonus
-            )
+            source = chunk["metadata"].get("source", "")
+
+            # 3. source weighting
+            source_bonus = 0.0
+
+            for key in self.SOURCE_PRIORITY:
+                if key.lower() in source.lower():
+                    source_bonus = self.SOURCE_PRIORITY[key]
+                    break
+
+            # 4. COMBINE SCORES (UPDATED WEIGHTING)
+            final_score = 0.85 * text_score + 0.15 * source_bonus
 
             final_scores.append(final_score)
 
-        # Convert to numpy for sorting
-        final_scores = np.array(final_scores)
-
-        # Rank indices
         ranked_idx = np.argsort(final_scores)[::-1]
 
-        # Filter weak chunks (important for hallucination control)
-        filtered = [
-            chunks[i]
-            for i in ranked_idx
-            if final_scores[i] >= self.MIN_SCORE_THRESHOLD
-        ]
-
-        # fallback: if filtering removes everything, return top-k anyway
-        if not filtered:
-            filtered = [chunks[i] for i in ranked_idx[:top_k]]
-
-        return filtered[:top_k]
+        return [chunks[i] for i in ranked_idx[:top_k]]

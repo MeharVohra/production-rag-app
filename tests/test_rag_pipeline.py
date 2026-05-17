@@ -34,9 +34,9 @@ retriever = HybridRetriever(chunks)
 llm = AnswerGenerator()
 
 # 5. Query
-query = "What is diabetes mellitus?"
+query = "briefly explain Unclassified diabetes"
 
-retrieved_chunks = retriever.search(query, k=5)
+retrieved_chunks = retriever.search(query, k=3)
 
 print("\n--- RETRIEVED CHUNKS ---\n")
 for i, c in enumerate(retrieved_chunks):

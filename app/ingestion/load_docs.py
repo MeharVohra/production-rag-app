@@ -12,9 +12,10 @@ def load_pdf(file_path: str):
     loader = PyPDFLoader(file_path)
     documents = loader.load()
 
-    # attach metadata
-    for doc in documents:
+    # improve metadata (IMPORTANT for debugging RAG)
+    for i, doc in enumerate(documents):
         doc.metadata["source"] = os.path.basename(file_path)
+        doc.metadata["page"] = i + 1  # add explicit page number
 
     return documents
 
@@ -23,7 +24,6 @@ def load_all_pdfs(folder_path: str):
     """
     Loads ALL PDFs in a folder (multi-document RAG)
     """
-
     if not os.path.exists(folder_path):
         raise FileNotFoundError(f"Folder not found: {folder_path}")
 
@@ -34,7 +34,6 @@ def load_all_pdfs(folder_path: str):
             file_path = os.path.join(folder_path, file)
 
             docs = load_pdf(file_path)
-
             all_docs.extend(docs)
 
     return all_docs
@@ -52,4 +51,5 @@ if __name__ == "__main__":
     for i in range(min(2, len(docs))):
         print("\n--- PAGE ---")
         print("SOURCE:", docs[i].metadata.get("source"))
+        print("PAGE:", docs[i].metadata.get("page"))
         print(docs[i].page_content[:500])

@@ -16,28 +16,30 @@ class AnswerGenerator:
         # SAFE CONTEXT BUILDING
         # ======================================
 
-        context = "\n\n".join([
-        chunk["text"][:400] for chunk in chunks[:3]
-    ])
+        context = "\n".join(f"- {c['text'][:400]}" for c in chunks[:3])
         # ======================================
         # PROMPT
         # ======================================
 
         prompt = f"""
-        You are a precise QA assistant.
+            You are a medical assistant.
 
-        Answer the question ONLY using the context below.
+            Answer the question using ONLY the provided context.
 
-        If the answer is not in the context, say "I don't know".
+            Rules:
+            - Give a short, direct definition (1–2 sentences max)
+            - Do NOT repeat raw sentences from context unless rewritten
+            - If context is weak, infer carefully but stay factual
+            - If unsure, say "I don't know"
 
-        Context:
-        {context}
+            Context:
+            {context}
 
-        Question:
-        {query}
+            Question:
+            {query}
 
-        Answer:
-        """
+            Answer:
+            """
 
         # ======================================
         # DEBUG
