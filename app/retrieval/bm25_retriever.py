@@ -31,11 +31,13 @@ class BM25Retriever:
 
         results = []
 
-        for idx in top_k_idx:
+        for i in top_k_idx:
+
+            chunk = self.chunks[i]
 
             results.append({
-                "chunk": self.chunks[idx],
-                "score": float(scores[idx])
+                "text": chunk.page_content,
+                "metadata": getattr(chunk, "metadata", {})
             })
 
         return results

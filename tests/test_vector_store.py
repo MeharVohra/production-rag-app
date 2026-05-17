@@ -18,7 +18,7 @@ vs.add_chunks(chunks)
 print("Chunks stored successfully!")
 
 # test search
-results = vs.search("At what age he made his public debut ?", k=3)
+results = vs.search("What is diabetes mellitus?", k=3)
 
 print("\n--- SEARCH RESULTS ---")
 for doc in results["documents"][0]:

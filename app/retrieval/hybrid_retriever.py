@@ -55,8 +55,8 @@ class HybridRetriever:
         for chunk in bm25_results:
 
             combined.append({
-                "text": chunk.page_content,
-                "metadata": chunk.metadata
+                "text": chunk["text"],
+                "metadata": chunk["metadata"]
             })
 
         # ==========================================

@@ -1,17 +1,25 @@
-from app.ingestion.load_docs import load_pdf
+from app.ingestion.load_docs import load_all_pdfs
 from app.ingestion.chunk_docs import chunk_documents
 from app.retrieval.hybrid_retriever import HybridRetriever
 
 
-docs = load_pdf("data/sample.pdf")
+# Load ALL PDFs
+docs = load_all_pdfs("data/pdfs")
+
+# Chunk them
 chunks = chunk_documents(docs)
 
+# Build retriever
 retriever = HybridRetriever(chunks)
 
-results = retriever.search("In which year Michael joined the Jackson brothers", k=3)
+# Query
+results = retriever.search(
+    "What is diabetes mellitus?",
+    k=3
+)
 
 print("\n--- HYBRID RESULTS ---\n")
 
 for r in results:
-    print(r[:300])
+    print(r["text"][:300])
     print("-" * 50)

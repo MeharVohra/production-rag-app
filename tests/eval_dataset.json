@@ -1,10 +1,22 @@
 [
   {
-    "question": "What is Michael Jackson's full name?",
-    "answer": "Michael Joseph Jackson"
+    "question": "What is diabetes mellitus?",
+    "answer": "A group of diseases that affect how the body uses blood sugar (glucose)."
   },
   {
-    "question": "When was he born?",
-    "answer": "August 29, 1958"
+    "question": "How is diabetes classified?",
+    "answer": "Diabetes is commonly classified into Type 1, Type 2, and gestational diabetes."
+  },
+  {
+    "question": "What is insulin used for?",
+    "answer": "Insulin helps regulate blood glucose levels in the body."
+  },
+  {
+    "question": "What organization provides diabetes standards of care?",
+    "answer": "The American Diabetes Association (ADA)."
+  },
+  {
+    "question": "What is the role of diet in diabetes management?",
+    "answer": "Diet helps control blood sugar levels and manage diabetes effectively."
   }
 ]
