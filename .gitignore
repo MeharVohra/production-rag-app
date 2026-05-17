@@ -1,6 +1,13 @@
-venv/
+# Vector stores
+vector_store/
+vectordb/
+faiss_index/
+chroma/
+*.faiss
+*.pkl
+*.parquet
+
+# embeddings cache (optional)
+.cache/
 __pycache__/
 *.pyc
-.env
-.vector_store/
-.DS_Store

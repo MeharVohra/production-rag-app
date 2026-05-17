@@ -1,116 +1,119 @@
-# Production RAG Application
+# 🟢 CI BADGE
 
-An enterprise-style Retrieval-Augmented Generation (RAG) system that combines hybrid retrieval, reranking, and evaluation-driven development to deliver accurate, grounded answers from documents.
+```md
+![CI](https://github.com/MeharVohra/production-rag-app/actions/workflows/ci.yml/badge.svg)
 
----
 
-## Features
+# Production RAG Pipeline (PDF Question Answering System)
 
-### Hybrid Retrieval
-- Combines **BM25 (keyword search)** and **Vector Search (semantic search)**
-- Improves recall + relevance compared to single-method retrieval
-
-### Cross-Encoder Reranking
-- Re-ranks retrieved documents using a transformer-based model
-- Improves final context quality before generation
-
-### Citation Enforcement
-- Every answer is grounded in retrieved document chunks
-- Returns page-level sources for transparency
-
-### Evaluation Pipeline
-- Automated testing of retrieval + generation quality
-- Measures correctness using ground-truth Q/A pairs
-
-### CI/CD Integration
-- GitHub Actions pipeline runs tests automatically on every push
-- Ensures system reliability and regression detection
+A Retrieval-Augmented Generation (RAG) system that answers questions from multiple PDF documents using hybrid retrieval, reranking, and a transformer-based LLM.
 
 ---
 
-## Architecture
+## 🚀 Features
 
-PDF → Chunking → Embeddings → Vector DB (ChromaDB) <br>
-↓ <br>
-BM25 Index <br>
-↓ <br>
-Hybrid Retriever (BM25 + Vector) <br>
-↓ <br>
-Cross-Encoder Reranker <br>
-↓ <br>
-LLM (Flan-T5) <br>
-↓ <br>
-Final Answer + Citations
-
-## 🛠️ Tech Stack
-
-- Python 
-- FastAPI 
-- LangChain (utilities / document handling)
-- ChromaDB (vector database)
-- Sentence Transformers 
-- Transformers (HuggingFace)
-- BM25 (rank-bm25)
-- GitHub Actions (CI/CD)
+- Multi-PDF document ingestion
+- Page-level chunking
+- Hybrid retrieval (dense + keyword-based)
+- Cross-encoder reranking
+- FLAN-T5 based answer generation
+- Source attribution (page-level)
+- Evaluation pipeline
+- CI integration with GitHub Actions
 
 ---
 
-## Project Structure
+## 🧠 Architecture
 
-```
+The system follows a modular RAG pipeline:
 
-app/
-├── ingestion/        # PDF loading & chunking
-├── retrieval/        # BM25 + vector search + hybrid logic
-├── reranking/        # Cross-encoder reranker
-├── llm/              # Answer generation
-├── api/              # FastAPI server
+1. **Document Ingestion**
+   - Loads multiple PDFs
+   - Extracts page-level text
 
-tests/
-├── test\_evaluation.py
-├── test\_rag\_pipeline.py
-├── eval\_dataset.json
+2. **Chunking**
+   - Splits documents into semantically meaningful chunks
 
-vector\_store/
+3. **Retrieval**
+   - Hybrid search (dense + sparse)
 
-🚀 How to Run
-1. Install dependencies
-pip install -r requirements.txt
-2. Run ingestion
-python app/ingestion/load_docs.py
-3. Run tests
-python -m tests.test_rag_pipeline
-python -m tests.test_evaluation
-4. Run API (optional)
-uvicorn app.api.main:app --reload
+4. **Reranking**
+   - CrossEncoder scores query–chunk relevance
+   - Optional source weighting
 
-🧪 Evaluation
-The system includes an evaluation pipeline that checks:
-Retrieval correctness (Recall@K)
-Answer accuracy
-End-to-end RAG performance
+5. **Generation**
+   - FLAN-T5 generates final answer using retrieved context
 
-📊 CI/CD
-GitHub Actions automatically:
-installs dependencies
-runs evaluation tests
-ensures no regression in RAG performance
+---
 
-📌 Example Output
-Question:
-What is Michael Jackson's full name?
-Answer:
-Michael Joseph Jackson
+## 🏗️ Architecture Diagram
+
+```mermaid
+graph TD
+A[PDF Files] --> B[Loader]
+B --> C[Chunking]
+C --> D[Hybrid Retriever]
+D --> E[Reranker CrossEncoder]
+E --> F[Top-K Chunks]
+F --> G[FLAN-T5 Generator]
+G --> H[Final Answer + Sources]
+
+📊 Example Queries
+Query 1
+
+Q: What is diabetes mellitus?
+
+A:
+A metabolic disorder of multiple aetiology.
+
+Sources:
+Page 7, Page 19
+
+Query 2
+
+Q: How is diabetes classified?
+
+A:
+Diabetes is classified into types based on aetiology and clinical stages.
+
+Sources:
+Page 6, Page 25
+
+Query 3
+
+Q: What is insulin used for?
+
+A:
+It helps move sugar in the blood to other parts of the body.
+
 Sources:
 Page 0, Page 1
 
-🔥 Key Highlights
-Production-style RAG pipeline
-Hybrid retrieval improves accuracy
-Reranking reduces noise
-Evaluation-driven development
-CI/CD ensures stability
+🧪 Evaluation
+
+The system includes an automated evaluation script that checks answer quality using:
+
+token overlap scoring
+synonym matching
+recall-based accuracy metric
+⚙️ CI Pipeline
+
+GitHub Actions runs:
+
+unit tests
+evaluation checks
+full RAG pipeline test
+📦 Installation
+pip install -r requirements.txt
+▶️ Run Pipeline
+python -m tests.test_rag_pipeline
+🧑‍💻 Tech Stack
+Python
+PyTorch
+HuggingFace Transformers
+SentenceTransformers
+LangChain (PDF loader)
+GitHub Actions (CI)
+---
 
 
-Author
-Mehar Vohra
