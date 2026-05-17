@@ -21,16 +21,31 @@ jobs:
       - name: Upgrade pip
         run: pip install --upgrade pip
 
+      # IMPORTANT: fixes "No module named app"
       - name: Set PYTHONPATH
         run: echo "PYTHONPATH=$PWD" >> $GITHUB_ENV
 
+      # Install dependencies + pytest
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
           pip install pytest
 
-      - name: Run unit tests
-        run: pytest tests/ -q
+      # Optional but recommended for stable CI
+      - name: Create pytest config
+        run: |
+          echo "[pytest]" > pytest.ini
+          echo "testpaths = tests" >> pytest.ini
+          echo "addopts = -ra -q --disable-warnings --maxfail=1" >> pytest.ini
 
+      # Unit tests
+      - name: Run unit tests
+        run: pytest -vv tests/
+
+      # Evaluation
       - name: Run evaluation (lightweight)
         run: python -m tests.test_evaluation
+
+      # Full RAG pipeline test
+      - name: Run RAG pipeline test
+        run: python -m tests.test_rag_pipeline
