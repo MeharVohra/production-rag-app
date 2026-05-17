@@ -24,13 +24,19 @@ class VectorStore:
         ids = []
 
         for i, chunk in enumerate(chunks):
+
             texts.append(chunk.page_content)
 
-            embedding = self.model.encode(chunk.page_content) # It converts text → vector.
-            # The model returns a NumPy array but chromaDB expects list
+            embedding = self.model.encode(chunk.page_content)
             embeddings.append(embedding.tolist())
 
-            metadatas.append(chunk.metadata)
+            # IMPORTANT: structured metadata
+            metadatas.append({
+                "source": chunk.metadata.get("source", "unknown"),
+                "page": chunk.metadata.get("page", -1),
+                "chunk_id": i
+            })
+
             ids.append(f"chunk_{i}")
 
         self.collection.add(
@@ -39,17 +45,21 @@ class VectorStore:
             metadatas=metadatas,
             ids=ids
         )
-    
+        
     # Takes a user question
     # Returns the top k most similar chunks
-    def search(self, query, k=3):
-        # Convert the user question into a vector
+    def search(self, query, k=5, source_filter=None):
+
         query_embedding = self.model.encode(query).tolist()
 
-        # Actual vector search step
+        where_clause = None
+        if source_filter:
+            where_clause = {"source": source_filter}
+
         results = self.collection.query(
             query_embeddings=[query_embedding],
-            n_results=k
+            n_results=k,
+            where=where_clause
         )
 
-        return results # returns a dictionary
+        return results
