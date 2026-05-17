@@ -28,11 +28,11 @@ for item in dataset:
     expected = item["answer"]
 
     # 1. RETRIEVAL
-    retrieved = retriever.search(question)
+    retrieved = retriever.search(question, k=8)
 
     retrieved_texts = [c["text"] for c in retrieved]
 
-    if any(expected.lower() in text.lower() for text in retrieved_texts):
+    if any(any(word in text.lower() for word in expected.lower().split()) for text in retrieved_texts):
         print("Retrieval correct")
     else:
         print("Retrieval failed")

@@ -14,7 +14,7 @@ class HybridRetriever:
         # add all chunks to vector DB
         self.vector_store.add_chunks(chunks)
 
-    def search(self, query, k=5):
+    def search(self, query, k=8):
 
         # ==========================================
         # 1. VECTOR SEARCH
