@@ -17,7 +17,7 @@ class AnswerGenerator:
         # ======================================
 
         context = "\n\n".join([
-        chunk["text"][:800] for chunk in chunks[:5]
+        chunk["text"][:400] for chunk in chunks[:3]
     ])
         # ======================================
         # PROMPT
@@ -57,7 +57,7 @@ class AnswerGenerator:
             prompt,
             return_tensors="pt",
             truncation=True,
-            max_length=768
+            max_length=512
         )
 
         outputs = self.model.generate(

@@ -12,7 +12,8 @@ class VectorStore:
         self.client = chromadb.PersistentClient(
             path="vector_store"
         )
-
+        
+        self.client.delete_collection("rag_chunks")
         self.collection = self.client.get_or_create_collection(
             name="rag_chunks"
         )
