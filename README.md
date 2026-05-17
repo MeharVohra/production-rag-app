@@ -1,4 +1,4 @@
-![CI](https://github.com/MeharVohra/production-rag-app/actions/workflows/ci.yml/badge.svg)
+[![CI](https://github.com/MeharVohra/production-rag-app/actions/workflows/rag-ci.yml/badge.svg)](https://github.com/MeharVohra/production-rag-app/actions/workflows/rag-ci.yml)
 
 # Production RAG Pipeline (PDF Question Answering System)
 
