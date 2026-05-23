@@ -1,4 +1,8 @@
 [![CI](https://github.com/MeharVohra/production-rag-app/actions/workflows/rag-ci.yml/badge.svg)](https://github.com/MeharVohra/production-rag-app/actions/workflows/rag-ci.yml)
+![Python](https://img.shields.io/badge/python-3.10%2B-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
+![PyTorch](https://img.shields.io/badge/PyTorch-ee4c2c?logo=pytorch&logoColor=white)
+![LangChain](https://img.shields.io/badge/LangChain-black)
 
 # Production RAG Pipeline (PDF Question Answering System)
 
